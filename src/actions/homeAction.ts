@@ -1,15 +1,15 @@
 import { Dispatch } from "redux";
 import { ActionTypes } from '../actionTypes/index';
-import { Home } from "../types/home";
+import { HomeTypes } from "../types/home";
 
 export interface AddHomeProjectDescription {
   type: ActionTypes.HOME_PROJECT_DESCRIPTION;
-  projectDescription: Home.ProjectDescription;
+  projectDescription: HomeTypes.ProjectDescription;
 }
 
 const HomeActions = {
 
-  addProjectDescription: (projectDescription: Home.ProjectDescription) =>
+  addProjectDescription: (projectDescription: HomeTypes.ProjectDescription) =>
     (dispatch: Dispatch<AddHomeProjectDescription>) => {
     dispatch({
       type: ActionTypes.HOME_PROJECT_DESCRIPTION,

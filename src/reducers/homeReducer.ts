@@ -15,7 +15,7 @@ export const homeReducer = (state: Record<string, any> = initialState, action: A
     case ActionTypes.HOME_PROJECT_DESCRIPTION:
       return {
         ...state,
-        projectDescription: state.projectDescription
+        projectDescription: action.projectDescription
       };
 
     default:

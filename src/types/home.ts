@@ -1,4 +1,4 @@
-declare module Home {
+declare module HomeTypes {
 
   type ElementType =
   | "rectangle"
@@ -10,7 +10,12 @@ declare module Home {
     modified: number;
   }
 
-  interface ElementProperties {
+  interface BoundingBox {
+    width: number;
+    height: number;
+  }
+
+  interface ElementProperty {
     id: string;
     type: ElementType;
     color: string;
@@ -19,6 +24,7 @@ declare module Home {
     y: number;
     width: number;
     height: number;
+    boundingBox: BoundingBox;
   }
 
   interface ProjectDescription {
@@ -28,9 +34,9 @@ declare module Home {
       name: string;
       width: number;
       height: number;
-      items: ElementProperties[];
+      items: ElementProperty[];
     }
   }
 }
 
-export type { Home };
+export type { HomeTypes };
