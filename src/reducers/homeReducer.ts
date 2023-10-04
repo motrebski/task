@@ -1,19 +1,22 @@
 import { ActionTypes } from '../actionTypes/index';
 import {
-  AddHomeProjectDescription,
+  SetHomeProjectDescription,
   SetHomeLoading,
-  SetHomeError
+  SetHomeError,
+  SetHomeProjectId
 } from "../actions/homeAction";
 
 type Action =
-  | AddHomeProjectDescription
+  | SetHomeProjectDescription
   | SetHomeLoading
-  | SetHomeError;
+  | SetHomeError
+  | SetHomeProjectId;
 
 const initialState = {
   loading: false,
   projectDescription: {},
-  error: false
+  error: null,
+  projectId: ''
 };
 
 export const homeReducer = (state: Record<string, any> = initialState, action: Action) => {
@@ -34,6 +37,12 @@ export const homeReducer = (state: Record<string, any> = initialState, action: A
       return {
         ...state,
         error: action.error
+      };
+
+    case ActionTypes.HOME_PROJECT_ID:
+      return {
+        ...state,
+        projectId: action.projectId
       };
 
     default:

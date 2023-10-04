@@ -1,10 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dispatch } from "redux";
-import { getProjectInitData, getProjectDescription } from "../../services/homeService";
 import { useDispatch, useSelector } from 'react-redux';
 import HomeActions from "../../actions/homeAction";
 import { HomeTypes }  from "../../types/home";
-import { calculateBoundingBox }  from "../../utils/boundingBox";
 import { Element }  from "../../components/Element";
 import { RootState } from '../../store';
 import { useForm } from "react-hook-form";
@@ -13,6 +11,7 @@ import { ReactComponent as Error } from "../../images/error.svg";
 
 export const Home = () => {
 
+  const [disabledButtonToggle, setDisabledButtonToggle] = useState<boolean>(false); 
   const {
     register,
     handleSubmit,
@@ -25,34 +24,19 @@ export const Home = () => {
   const loading: boolean = useSelector<RootState, boolean>((state) =>
     state.loading
   );
-  const error: boolean = useSelector<RootState, boolean>((state) =>
+  const error: HomeTypes.ErrorType = useSelector<RootState, HomeTypes.ErrorType>((state) =>
     state.error
   );
 
   const fetchData = async (data: Record<string, any> = {}) => {
-    try {
-      dispatch(HomeActions.setLoading(true));
-      let id: string;
-      if (data?.id) {
-        id = data.id; 
-      } else {
-        const projectInitData = await getProjectInitData();
-        id = projectInitData.id;
-      }
-      const projectDescription = await getProjectDescription(id);
-      projectDescription?.project?.items.map((item: HomeTypes.ElementProperty) => {
-        const boundingBox = calculateBoundingBox(item.width, item.height, item.rotation * (Math.PI / 180));
-        item.boundingBox = boundingBox;
-        return item;
-      });
-      dispatch(HomeActions.addProjectDescription(projectDescription));
-      dispatch(HomeActions.setLoading(false));
-      dispatch(HomeActions.setError(false));
-    } catch (error) {
-      dispatch(HomeActions.setLoading(false));
-      dispatch(HomeActions.setError(true));
+    let id: string = "";
+    if (data?.id) {
+      id = data.id;
+      setDisabledButtonToggle(false);
+    } else {
+      setDisabledButtonToggle(true);
     }
-
+    dispatch(HomeActions.setProjectId(data?.id));
   }
 
   return(
@@ -60,10 +44,11 @@ export const Home = () => {
       <div className='bg-sky-50 w-full'>
         <div className='px-5 py-5'>
           <div className='flex gap-2.5 mb-2 max-md:flex-col'>
-            <span>Fetch random data:</span>
+            <span>Fetch random project:</span>
             <button
+              disabled={(loading && disabledButtonToggle)}
               onClick={fetchData}
-              className='bg-teal-500 rounded-md px-5 w-20 hover:bg-teal-600'
+              className={`bg-teal-500 rounded-md px-5 w-20 hover:bg-teal-600 ${(loading && disabledButtonToggle)? 'bg-teal-600': ''}`}
             >
               Fetch
             </button>
@@ -71,14 +56,15 @@ export const Home = () => {
           
           <form onSubmit={handleSubmit(fetchData)}>
             <div className='flex gap-2.5 max-md:flex-col'>
-              <span>Fetch data with id:</span>
+              <span>Fetch project with id:</span>
               <input 
                 {...register("id", { required: true })} 
                 className='rounded-md border-solid border px-1 w-64 border-teal-600'></input>
               <div className='flex gap-2.5'>
                 <button
+                  disabled={(loading && !disabledButtonToggle)}
                   type='submit'
-                  className='bg-teal-500 rounded-md px-5 w-20 hover:bg-teal-600'
+                  className={`bg-teal-500 rounded-md px-5 w-20 hover:bg-teal-600 ${(loading && !disabledButtonToggle)? 'bg-teal-600': ''}`}
                 >
                   Fetch
                 </button>
@@ -117,7 +103,7 @@ export const Home = () => {
       )}
       {(!loading && error) && (
         <div className='flex items-center justify-center h-full gap-2.5'>
-          <Error/><span>Error occured!</span>
+          <Error/><span>{error}</span>
         </div>
       )}
     </div>

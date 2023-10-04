@@ -2,7 +2,7 @@ import { Dispatch } from "redux";
 import { ActionTypes } from '../actionTypes/index';
 import { HomeTypes } from "../types/home";
 
-export interface AddHomeProjectDescription {
+export interface SetHomeProjectDescription {
   type: ActionTypes.HOME_PROJECT_DESCRIPTION;
   projectDescription: HomeTypes.ProjectDescription;
 }
@@ -14,13 +14,18 @@ export interface SetHomeLoading {
 
 export interface SetHomeError {
   type: ActionTypes.HOME_ERROR;
-  error: boolean;
+  error: HomeTypes.ErrorType;
+}
+
+export interface SetHomeProjectId {
+  type: ActionTypes.HOME_PROJECT_ID;
+  projectId: string;
 }
 
 const HomeActions = {
 
   addProjectDescription: (projectDescription: HomeTypes.ProjectDescription) =>
-    (dispatch: Dispatch<AddHomeProjectDescription>) => {
+    (dispatch: Dispatch<SetHomeProjectDescription>) => {
     dispatch({
       type: ActionTypes.HOME_PROJECT_DESCRIPTION,
       projectDescription
@@ -35,11 +40,19 @@ const HomeActions = {
     });
   },
 
-  setError: (error: boolean) =>
+  setError: (error: HomeTypes.ErrorType) =>
     (dispatch: Dispatch<SetHomeError>) => {
     dispatch({
       type: ActionTypes.HOME_ERROR,
       error
+    });
+  },
+
+  setProjectId: (projectId: string) =>
+    (dispatch: Dispatch<SetHomeProjectId>) => {
+    dispatch({
+      type: ActionTypes.HOME_PROJECT_ID,
+      projectId
     });
   },
 

@@ -9,16 +9,12 @@ import {
 
 function App() {
   return (
-    <html lang="en">
-      <body>
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="*" component={NotFound} />
-          </Switch>
-        </BrowserRouter>
-      </body>
-    </html>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="*" component={NotFound} />
+      </Switch>
+    </BrowserRouter>
   );
 }
 

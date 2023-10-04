@@ -1,5 +1,9 @@
 declare module HomeTypes {
 
+  type ErrorType =
+  | string
+  | null;
+
   type ElementType =
   | "rectangle"
   | "ellipse";
