@@ -13,8 +13,8 @@ export const getProjectInitData = async (): Promise<HomeTypes.ProjectInitData> =
 };
 
 export const getProjectDescription = async (id: string): Promise<HomeTypes.ProjectDescription> => {
-  const response = await fetch(`${`${URL_NAME}/project`}/cklzjw3mn0001cq9k3mvy3fvf-7941218198815691`);
 
+  const response = await fetch(`${`${URL_NAME}/project`}/${id}`);
   if (response.ok) {
     return response.json();
   } else {

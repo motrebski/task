@@ -1,11 +1,22 @@
 import React from 'react';
-import { Home } from '../src/pages/Home/home';
+import { Home } from './pages/Home/Home';
+import { NotFound } from '../src/pages/NotFound/NotFound';
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+} from "react-router-dom";
 
 function App() {
   return (
     <html lang="en">
       <body>
-        <Home></Home>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="*" component={NotFound} />
+          </Switch>
+        </BrowserRouter>
       </body>
     </html>
   );

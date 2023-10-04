@@ -7,6 +7,16 @@ export interface AddHomeProjectDescription {
   projectDescription: HomeTypes.ProjectDescription;
 }
 
+export interface SetHomeLoading {
+  type: ActionTypes.HOME_LOADING;
+  loading: boolean;
+}
+
+export interface SetHomeError {
+  type: ActionTypes.HOME_ERROR;
+  error: boolean;
+}
+
 const HomeActions = {
 
   addProjectDescription: (projectDescription: HomeTypes.ProjectDescription) =>
@@ -14,6 +24,22 @@ const HomeActions = {
     dispatch({
       type: ActionTypes.HOME_PROJECT_DESCRIPTION,
       projectDescription
+    });
+  },
+
+  setLoading: (loading: boolean) =>
+    (dispatch: Dispatch<SetHomeLoading>) => {
+    dispatch({
+      type: ActionTypes.HOME_LOADING,
+      loading
+    });
+  },
+
+  setError: (error: boolean) =>
+    (dispatch: Dispatch<SetHomeError>) => {
+    dispatch({
+      type: ActionTypes.HOME_ERROR,
+      error
     });
   },
 
