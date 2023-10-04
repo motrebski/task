@@ -1,3 +1,22 @@
+# 11. Proszę zaproponować (bez potrzeby implementacji) jakie uwagi powinny zostać zgłoszone do autora API oraz jakie testy powinny być napisane dla tej aplikacji.
+
+Uwagi do autora API:
+1. Jeśli błąd jest powiązany z jakimikolwiek parametrami wejściowymi, błąd powinien być zwracany jako błąd serii 400.
+2. Serwer powinien zwracać wartość zgodną z ustalonym typem, na przykład 
+rotation: number. W jednym z przypadków zwracany jest string dla rotation, co nie powinno mieć miejsca.
+3. Czas oczekiwania na odpowiedź jest za długi.
+
+Unit testy:
+1. Sprawdzić, czy po kliknięciu przycisku "Fetch" elementy w svg są wyrenderowane.
+2. Przetestować funkcję wyliczającą szerokość i wysokość Bounding Box.
+3. Sprawdzić, czy dla błędnych danych z serwera pojawi się informacja dla użytkownika.
+4. Sprawdzić, czy pojawi się informacja o błędzie, gdy serwer zwraca błąd 404 lub 500.
+5. Sprawdzić, czy przycisk jest ustawiony na disabled, gdy dane są pobierane.
+6. Sprawdzić, czy dla poprawnych danych wyrenderowane zostaje name i id.
+7. Sprawdzić, czy walidacja dla inputa działa poprawnie.
+8. Sprawdzić, czy strona Not Found Page wyświetla się poprawnie.
+9. Sprawdzić, czy informacja o braku danych pojawia się przy pierwszym wejściu na stronę startową.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
